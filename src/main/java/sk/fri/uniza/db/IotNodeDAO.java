@@ -3,10 +3,10 @@ package sk.fri.uniza.db;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import sk.fri.uniza.model.IotNode;
-
+import sk.fri.uniza.model.HouseHold;
 import java.util.List;
 
-public class IotNodeDAO extends AbstractDAO<IotNodeDAO> {
+public class IotNodeDAO extends AbstractDAO<IotNode> {
     /**
      * Creates a new DAO with a given session provider.
      *
@@ -22,21 +22,19 @@ public class IotNodeDAO extends AbstractDAO<IotNodeDAO> {
     }
 
     public IotNode findById(Long id) {
-        //TODO Doplniť
-        return null;
+        return get(id);
     }
 
     public IotNode update(IotNode iotNode) {
-        //TODO Doplniť
-        return null;
+        return (IotNode) currentSession().merge(iotNode);
     }
 
     public List<IotNode> findByHouseHold(Long houseHoldId) {
-        //TODO Doplniť
-        return null;
+        return list(namedQuery("IotNode_findByHouseHold")
+                .setParameter("houseHoldID", houseHoldId));
     }
 
     public List<IotNode> allIotNodes() {
-        return null;
+        return list(namedQuery("IotNode_AllIoTNodes"));
     }
 }
